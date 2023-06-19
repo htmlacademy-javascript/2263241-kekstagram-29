@@ -36,6 +36,9 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
+const PHOTOS_COUNT = 25;
+const COMMENTS_COUNT = 30;
+
 //создаем один комментарий - объект
 const createOneComment = () => {
   const randomCountMessage = getRandomInteger(1,2); //1 или 2 предложения
@@ -79,17 +82,17 @@ const createOneFoto = (index) => {
     url: `photos/${ idFoto }.jpg`,
     description: DESCRIPTION[getRandomInteger(0,DESCRIPTION.length - 1)],
     likes: getRandomInteger(15,200),
-    comments : createComments(30)
+    comments : createComments(COMMENTS_COUNT)
   };
 };
 
 //создаем массив из фото
 function createGallary(maxCount) {
-  const fotos = [];
+  const photos = [];
   for (let i = 0; i < maxCount; i++) {
-    fotos.push(createOneFoto(i));
+    photos.push(createOneFoto(i));
   }
-  return fotos;
+  return photos;
 }
 
-createGallary(25);
+createGallary(PHOTOS_COUNT);
