@@ -1,6 +1,4 @@
 import {getRandomInteger} from './util.js';
-// import {PHOTOS_COUNT, COMMENTS_COUNT, MESSAGE_MIN, MESSAGE_MAX, COMMENT_MIN, COMMENT_MAX,
-//   AVATAR_MIN, AVATAR_MAX, LIKE_MIN, LIKE_MAX, DESCRIPTION, NAME, MESSAGE} from './data.js';
 import {Сounters, DESCRIPTION, NAME, MESSAGE} from './data.js';
 
 //создаем один комментарий - объект
