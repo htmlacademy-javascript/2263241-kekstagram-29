@@ -1,13 +1,26 @@
-const PHOTOS_COUNT = 25;
-const COMMENTS_COUNT = 30;
-const MESSAGE_MIN = 1;
-const MESSAGE_MAX = 200;
-const COMMENT_MIN = 1;
-const COMMENT_MAX = 2;
-const AVATAR_MIN = 1;
-const AVATAR_MAX = 6;
-const LIKE_MIN = 15;
-const LIKE_MAX = 200;
+// const PHOTOS_COUNT = 25;
+// const COMMENTS_COUNT = 30;
+// const MESSAGE_MIN = 1;
+// const MESSAGE_MAX = 200;
+// const COMMENT_MIN = 1;
+// const COMMENT_MAX = 2;
+// const AVATAR_MIN = 1;
+// const AVATAR_MAX = 6;
+// const LIKE_MIN = 15;
+// const LIKE_MAX = 200;
+
+const Сounters = {
+  PHOTOS_COUNT: 25,
+  COMMENTS_COUNT: 30,
+  MESSAGE_MIN: 1,
+  MESSAGE_MAX: 200,
+  COMMENT_MIN: 1,
+  COMMENT_MAX: 2,
+  AVATAR_MIN: 1,
+  AVATAR_MAX: 6,
+  LIKE_MIN: 15,
+  LIKE_MAX: 200
+};
 
 // eslint-disable-next-line no-unused-vars
 const DESCRIPTION = [
@@ -36,5 +49,6 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-export {PHOTOS_COUNT, COMMENTS_COUNT, MESSAGE_MIN, MESSAGE_MAX, COMMENT_MIN, COMMENT_MAX,
-  AVATAR_MIN, AVATAR_MAX, LIKE_MIN, LIKE_MAX, DESCRIPTION, NAME, MESSAGE};
+// export {PHOTOS_COUNT, COMMENTS_COUNT, MESSAGE_MIN, MESSAGE_MAX, COMMENT_MIN, COMMENT_MAX,
+//   AVATAR_MIN, AVATAR_MAX, LIKE_MIN, LIKE_MAX, DESCRIPTION, NAME, MESSAGE};
+export {Сounters, DESCRIPTION, NAME, MESSAGE};

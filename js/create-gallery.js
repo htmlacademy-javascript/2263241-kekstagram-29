@@ -1,10 +1,11 @@
 import {getRandomInteger} from './util.js';
-import {PHOTOS_COUNT, COMMENTS_COUNT, MESSAGE_MIN, MESSAGE_MAX, COMMENT_MIN, COMMENT_MAX,
-  AVATAR_MIN, AVATAR_MAX, LIKE_MIN, LIKE_MAX, DESCRIPTION, NAME, MESSAGE} from './data.js';
+// import {PHOTOS_COUNT, COMMENTS_COUNT, MESSAGE_MIN, MESSAGE_MAX, COMMENT_MIN, COMMENT_MAX,
+//   AVATAR_MIN, AVATAR_MAX, LIKE_MIN, LIKE_MAX, DESCRIPTION, NAME, MESSAGE} from './data.js';
+import {Сounters, DESCRIPTION, NAME, MESSAGE} from './data.js';
 
 //создаем один комментарий - объект
 const createOneComment = () => {
-  const randomCountMessage = getRandomInteger(COMMENT_MIN,COMMENT_MAX); //1 или 2 предложения
+  const randomCountMessage = getRandomInteger(Сounters.COMMENT_MIN,Сounters.COMMENT_MAX); //1 или 2 предложения
   let message = MESSAGE[getRandomInteger(0,MESSAGE.length - 1)];
 
   if (randomCountMessage === 2) {
@@ -19,8 +20,8 @@ const createOneComment = () => {
   }
 
   return {
-    id: getRandomInteger(MESSAGE_MIN, MESSAGE_MAX),
-    avatar: `img/avatar-${ getRandomInteger(AVATAR_MIN,AVATAR_MAX)}.svg`,
+    id: getRandomInteger(Сounters.MESSAGE_MIN, Сounters.MESSAGE_MAX),
+    avatar: `img/avatar-${ getRandomInteger(Сounters.AVATAR_MIN, Сounters.AVATAR_MAX)}.svg`,
     message: message,
     name: NAME[getRandomInteger(0,NAME.length - 1)]
   };
@@ -42,14 +43,14 @@ const createOneFoto = (index) => ({
   id: index,
   url: `photos/${ index}.jpg`,
   description: DESCRIPTION[getRandomInteger(0,DESCRIPTION.length - 1)],
-  likes: getRandomInteger(LIKE_MIN,LIKE_MAX),
-  comments : createComments(COMMENTS_COUNT)
+  likes: getRandomInteger(Сounters.LIKE_MIN,Сounters.LIKE_MAX),
+  comments : createComments(Сounters.COMMENTS_COUNT)
 });
 
 //создаем массив из фото
 
 const createGallery = () => Array.from(
-  {length: PHOTOS_COUNT},
+  {length: Сounters.PHOTOS_COUNT},
   (_, photoIndex) => createOneFoto(photoIndex + 1),
 );
 
