@@ -9,11 +9,14 @@ const picturesGallery = createGallery();
 
 const createThumbnails = () => {
 
-  picturesGallery.forEach(({url, description,comments, likes}) => {
+  picturesGallery.forEach(({id, url, description,comments, likes}) => {
     const picturesElement = picturesTemplate.cloneNode(true);
+    const pictureElementImg = picturesElement.querySelector('.picture__img');
 
-    picturesElement.querySelector('.picture__img').src = url;
-    picturesElement.querySelector('.picture__img').alt = description;
+    pictureElementImg.id = id;
+    pictureElementImg.src = url;
+    pictureElementImg.alt = description;
+
     picturesElement.querySelector('.picture__comments').textContent = comments.length;
     picturesElement.querySelector('.picture__likes').textContent = likes;
 
