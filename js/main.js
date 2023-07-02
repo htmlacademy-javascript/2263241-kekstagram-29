@@ -1,4 +1,3 @@
-import {createGallery} from './create-gallery.js';
+import {createThumbnails} from './create-thumbnails.js';
 
-createGallery();
-
+createThumbnails();
