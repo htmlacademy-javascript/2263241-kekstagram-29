@@ -8,7 +8,8 @@ const Сounters = {
   AVATAR_MIN: 1,
   AVATAR_MAX: 6,
   LIKE_MIN: 15,
-  LIKE_MAX: 200
+  LIKE_MAX: 200,
+  COMMENT_BIG_PICTURE: 5
 };
 
 // eslint-disable-next-line no-unused-vars

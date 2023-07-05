@@ -27,4 +27,4 @@ const createThumbnails = () => {
 
 };
 
-export {createThumbnails};
+export {createThumbnails, picturesGallery};
