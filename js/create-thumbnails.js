@@ -1,15 +1,14 @@
-import {createGallery} from './create-gallery.js';
+//import {createGallery} from './create-gallery.js';
+const createThumbnails = (picturesArray) => {
 
-const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const picturesContainer = document.querySelector('.pictures');
+  const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
+  const picturesContainer = document.querySelector('.pictures');
 
-const picturestFragment = document.createDocumentFragment();
+  const picturestFragment = document.createDocumentFragment();
 
-const picturesGallery = createGallery();
+  //const picturesGallery = createGallery();
 
-const createThumbnails = () => {
-
-  picturesGallery.forEach(({id, url, description,comments, likes}) => {
+  picturesArray.forEach(({id, url, description,comments, likes}) => {
     const picturesElement = picturesTemplate.cloneNode(true);
     const pictureElementImg = picturesElement.querySelector('.picture__img');
 

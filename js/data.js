@@ -1,4 +1,4 @@
-const Сounters = {
+const Counters = {
   PHOTOS_COUNT: 25,
   COMMENTS_COUNT: 30,
   MESSAGE_MIN: 1,
@@ -8,7 +8,8 @@ const Сounters = {
   AVATAR_MIN: 1,
   AVATAR_MAX: 6,
   LIKE_MIN: 15,
-  LIKE_MAX: 200
+  LIKE_MAX: 200,
+  COMMENT_BIG_PICTURE: 5
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -38,4 +39,4 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-export {Сounters, DESCRIPTION, NAME, MESSAGE};
+export {Counters, DESCRIPTION, NAME, MESSAGE};
