@@ -10,6 +10,7 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
   const bigPictureSocialComments = bigPictureElementSocial.querySelector('.social__comments');
   const SocialCommentsOneElement = bigPictureSocialComments.children.item(0);
   const loaderComments = bigPictureElementSocial.querySelector('.social__comments-loader');
+  const commentsDownloadAmount = bigPictureElementSocial.querySelector('.comments-download');
   let currentPictureId = '';
   let currentPicture = {};
 
@@ -27,14 +28,16 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
 
   //Добавляет комментарии, предварительно удалив старые
 
-  const createComments = (comments, countcommentsLoad) => {
-    bigPictureSocialComments.innerHTML = '';
+  const createComments = (comments, startComment, countcommentsLoad) => {
+    if (startComment === 0) {
+      bigPictureSocialComments.innerHTML = '';
+    }
     const commentsFragment = document.createDocumentFragment();
 
     if (countcommentsLoad !== 0){
-      const commentsDownload = comments.slice(0, countcommentsLoad);
+      const commentsDownload = comments.slice(startComment, countcommentsLoad);
       for (let i = 0; i < commentsDownload.length; i++) {
-        const oneComment = createOneCommentElement(comments[i]); //создаем элемент для комментария
+        const oneComment = createOneCommentElement(commentsDownload[i]); //создаем элемент для комментария
         commentsFragment.appendChild(oneComment);
       }
     }
@@ -52,11 +55,14 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
   };
 
   function onButtonLoadClick () {
-    const uploadCommentsCount = bigPictureElementSocial.querySelector('.social__comments').children.length + countCommentsMax;
+    const startComment = bigPictureElementSocial.querySelector('.social__comments').children.length;
+    const uploadCommentsCount = startComment + countCommentsMax;
     if (uploadCommentsCount <= currentPicture.comments.length) {
-      createComments(currentPicture.comments, uploadCommentsCount);
+      createComments(currentPicture.comments, startComment, uploadCommentsCount);
+      commentsDownloadAmount.textContent = uploadCommentsCount;
     } else {
-      createComments(currentPicture.comments, currentPicture.comments.length);
+      createComments(currentPicture.comments, startComment, currentPicture.comments.length);
+      commentsDownloadAmount.textContent = currentPicture.comments.length;
       hideButtonUpload ();
     }
   }
@@ -80,8 +86,8 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
       showButtonUpload();
     }
 
-    bigPictureElementSocial.querySelector('.comments-download').textContent = countComments;
-    createComments(currentPicture.comments, countComments); //вызываем добавление комментов
+    commentsDownloadAmount.textContent = countComments;
+    createComments(currentPicture.comments, 0, countComments); //вызываем добавление комментов
   };
 
 
