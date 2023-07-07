@@ -1,4 +1,4 @@
-const Сounters = {
+const Counters = {
   PHOTOS_COUNT: 25,
   COMMENTS_COUNT: 30,
   MESSAGE_MIN: 1,
@@ -39,4 +39,4 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-export {Сounters, DESCRIPTION, NAME, MESSAGE};
+export {Counters, DESCRIPTION, NAME, MESSAGE};

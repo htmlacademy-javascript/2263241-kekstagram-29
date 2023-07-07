@@ -1,100 +1,122 @@
-import {picturesGallery} from './create-thumbnails.js';
-import {Сounters} from './data.js';
+import {isEscapeKey} from './util.js';
 
-const modalPicture = document.querySelector('.big-picture');
-const modalPictureCancel = modalPicture.querySelector('#picture-cancel');
-const parentPicture = document.querySelector('.pictures');
-const bigPictureElement = document.querySelector('.big-picture__preview');
-const bigPictureElementSocial = bigPictureElement.querySelector('.big-picture__social');
-let currentPictureId = '';
-
-//создает элемент DOM для одного комментария
-const createOneComment = (comment) => {
-  const commentElement = document.createElement('li');
-  commentElement.classList.add('social__comment');
-
-  const commentElementImg = document.createElement('img');
-  commentElementImg.classList.add('social__picture');
-  commentElementImg.src = comment.avatar;
-  commentElementImg.alt = comment.name;
-  commentElementImg.width = '35';
-  commentElementImg.height = '35';
-  commentElement.append(commentElementImg);
-
-  const commentElementText = document.createElement('p');
-  commentElementText.classList.add('social__text');
-  commentElementText.textContent = comment.message;
-  commentElement.append(commentElementText);
-
-  return commentElement;
-};
-
-//Удаляет комменты, которые были в разметке
-const removeChilds = (parent, children) => {
-  for (let i = children.length - 1; i >= 0 ; i--) {
-    parent.removeChild(children[i]);
-  }
-};
-
-//Добавляет комментарии, предварительно удалив старые
-const createComments = (comments) => {
-  const commentsFragment = document.createDocumentFragment();
-  //удаляем старые комментарии, которые были в разметке
+const showBigPicture = (picturesGallery, countCommentsMax) => {
+  const bodyElement = document.querySelector('body');
+  const modalPicture = document.querySelector('.big-picture');
+  const modalPictureCancel = modalPicture.querySelector('#picture-cancel');
+  const parentPicture = document.querySelector('.pictures');
+  const bigPictureElement = document.querySelector('.big-picture__preview');
+  const bigPictureElementSocial = bigPictureElement.querySelector('.big-picture__social');
   const bigPictureSocialComments = bigPictureElementSocial.querySelector('.social__comments');
-  if (bigPictureSocialComments.children.length > 0) {
-    removeChilds(bigPictureSocialComments, bigPictureSocialComments.children);
-  }
-  //Проверяем, комментариев >5?
-  let countComments = Сounters.COMMENT_BIG_PICTURE;
-  if (countComments > comments.length) {
-    countComments = comments.length;
-  }
-  //перебираем массив до длины countComments
-  for (let i = 0; i < countComments; i++) {
-    const oneComment = createOneComment(comments[i]); //создаем элемент для комментария
-    commentsFragment.appendChild(oneComment);
-  }
-  bigPictureSocialComments.appendChild(commentsFragment);
-};
+  const SocialCommentsOneElement = bigPictureSocialComments.children.item(0);
+  const loaderComments = bigPictureElementSocial.querySelector('.social__comments-loader');
+  let currentPictureId = '';
+  let currentPicture = {};
 
-//Находитё нужный элемент массива по currentPictureId
-const createBigPicture = (gallery) => {
-  for (let i = 0; i < gallery.length; i++) {
-    if (gallery[i].id === parseInt(currentPictureId, 10)) {
-      bigPictureElement.querySelector('.big-picture__img img').src = gallery[i].url;
-      bigPictureElementSocial.querySelector('.social__caption').textContent = gallery[i].description;
-      bigPictureElementSocial.querySelector('.likes-count').textContent = gallery[i].likes;
-      bigPictureElementSocial.querySelector('.comments-count').textContent = gallery[i].comments.length;
-      createComments(gallery[i].comments, gallery[i].comments.length); //вызываем добавление комментов
+  //создает элемент DOM для одного комментария
+  const createOneCommentElement = (comment) => {
+    const commentElement = SocialCommentsOneElement.cloneNode(true);
 
+    const commentElementImg = commentElement.querySelector('.social__picture');
+    commentElementImg.src = comment.avatar;
+    commentElementImg.alt = comment.name;
+    commentElement.querySelector('.social__text').textContent = comment.message;
+
+    return commentElement;
+  };
+
+  //Добавляет комментарии, предварительно удалив старые
+
+  const createComments = (comments, countcommentsLoad) => {
+    bigPictureSocialComments.innerHTML = '';
+    const commentsFragment = document.createDocumentFragment();
+
+    if (countcommentsLoad !== 0){
+      const commentsDownload = comments.slice(0, countcommentsLoad);
+      for (let i = 0; i < commentsDownload.length; i++) {
+        const oneComment = createOneCommentElement(comments[i]); //создаем элемент для комментария
+        commentsFragment.appendChild(oneComment);
+      }
+    }
+    bigPictureSocialComments.appendChild(commentsFragment);
+  };
+
+  const hideButtonUpload = () => {
+    loaderComments.classList.add('hidden');
+    loaderComments.removeEventListener('click', onButtonLoadClick);
+  };
+
+  const showButtonUpload = () => {
+    loaderComments.classList.remove('hidden');
+    loaderComments.addEventListener('click', onButtonLoadClick);
+  };
+
+  function onButtonLoadClick () {
+    const uploadCommentsCount = bigPictureElementSocial.querySelector('.social__comments').children.length + countCommentsMax;
+    if (uploadCommentsCount <= currentPicture.comments.length) {
+      createComments(currentPicture.comments, uploadCommentsCount);
+    } else {
+      createComments(currentPicture.comments, currentPicture.comments.length);
+      hideButtonUpload ();
     }
   }
 
-};
-//Проверяем кликнули по фото? тогда запоминаем id в currentPictureId и открываем модалку
-// массив фотографий picturesGallery импортировали из create-thumbnails.js
-const clickThumbnails = (evt) => {
-  if (evt.target.closest('.picture__img')) {
-    modalPicture.classList.remove('hidden');
-    currentPictureId = evt.target.id;
-    createBigPicture(picturesGallery);
-  }
-};
-//делегирую клик на родителя
-parentPicture.addEventListener('click', clickThumbnails);
+  //Находитё нужный элемент массива по currentPictureId
+  const createBigPicture = () => {
 
-modalPictureCancel.addEventListener('click', () => {
-  modalPicture.classList.add('hidden');
-});
+    currentPicture = picturesGallery.find((elementGallery) => elementGallery.id === parseInt(currentPictureId, 10));
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
+    bigPictureElement.querySelector('.big-picture__img img').src = currentPicture.url;
+    bigPictureElementSocial.querySelector('.social__caption').textContent = currentPicture.description;
+    bigPictureElementSocial.querySelector('.likes-count').textContent = currentPicture.likes;
+    bigPictureElementSocial.querySelector('.comments-count').textContent = currentPicture.comments.length;
+
+    let countComments = countCommentsMax;
+
+    if (countComments >= currentPicture.comments.length) {
+      countComments = currentPicture.comments.length;
+      hideButtonUpload();
+    } else {
+      showButtonUpload();
+    }
+
+    bigPictureElementSocial.querySelector('.comments-download').textContent = countComments;
+    createComments(currentPicture.comments, countComments); //вызываем добавление комментов
+  };
+
+
+  const onWindowKeyDown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closeBigPicture();
+    }
+  };
+
+  function closeBigPicture () {
+    bodyElement.classList.remove('modal-open');
     modalPicture.classList.add('hidden');
+    document.removeEventListener('keydown', onWindowKeyDown);
   }
-});
 
-const showBigPicture = () => {
+  function openBigPicture (evt) {
+
+    bodyElement.classList.add('modal-open');
+    modalPicture.classList.remove('hidden');
+    document.addEventListener('keydown', onWindowKeyDown);
+
+    currentPictureId = evt.target.id;
+    createBigPicture();
+  }
+
+  //делегирую клик на родителя
+  parentPicture.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture__img')) {
+      openBigPicture(evt);
+    }
+  });
+
+  modalPictureCancel.addEventListener('click', closeBigPicture);
+
 
 };
 export {showBigPicture};
