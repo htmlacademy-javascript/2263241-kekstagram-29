@@ -2,6 +2,7 @@ import {createThumbnails} from './create-thumbnails.js';
 import {createGallery} from './create-gallery.js';
 import {showBigPicture} from './big-picture.js';
 import {Counters} from './data.js';
+import './form.js';
 
 const picturesArray = createGallery();
 

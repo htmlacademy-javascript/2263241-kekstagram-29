@@ -9,8 +9,13 @@ const Counters = {
   AVATAR_MAX: 6,
   LIKE_MIN: 15,
   LIKE_MAX: 200,
-  COMMENT_BIG_PICTURE: 5
+  COMMENT_BIG_PICTURE: 5,
+  HASHTAG_MAX_COUNT: 5,
+  HASHTAG_MIN_LENGTH: 2,
+  HASHTAG_MAX_LENGTH: 20,
+  COMMENT_MAX_LENGTH: 140
 };
+const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
 // eslint-disable-next-line no-unused-vars
 const DESCRIPTION = [
@@ -39,4 +44,4 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-export {Counters, DESCRIPTION, NAME, MESSAGE};
+export {Counters, DESCRIPTION, NAME, MESSAGE, HASHTAG_PATTERN};

@@ -12,7 +12,7 @@ const createThumbnails = (picturesArray) => {
     const picturesElement = picturesTemplate.cloneNode(true);
     const pictureElementImg = picturesElement.querySelector('.picture__img');
 
-    pictureElementImg.id = id;
+    pictureElementImg.dataset.pictureId = id;
     pictureElementImg.src = url;
     pictureElementImg.alt = description;
 
