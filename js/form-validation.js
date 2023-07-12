@@ -1,23 +1,58 @@
+import {Counters, HASHTAG_PATTERN} from './data.js';
+
 const uploadForm = document.querySelector('.img-upload__form');
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
-const pristine = new Pristine(uploadForm ,{
-  classTo: 'form__item',
-  errorClass: 'form__item--invalid',
-  successClass: 'form__item--valid',
-  errorTextParent: 'form__item',
-  errorTextTag: 'span',
-  errorTextClass: 'form__error'
-});
 
-const correctTextDescription = (value) => value.length >= 2 && value.length <= 140;
+const validatePristine = new Pristine(uploadForm ,{
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error'
+},
+true);
 
-pristine.addValidator(
-  uploadForm.querySelector('.text__description'),
-  correctTextDescription,
-  'Введите от 2 до 140 символов'
+//проверка длины комментария
+validatePristine.addValidator(
+  textDescription,
+  (value) => value.length < Counters.COMMENT_MAX_LENGTH,
+  `Комментарий не должен превышать ${Counters.COMMENT_MAX_LENGTH} символов`
 );
 
-uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const arrayHashtags = (tagString) => tagString.trim().split(' ').filter((tag) => Boolean(tag.length));
+
+//проверка на правильный ввод хештега
+validatePristine.addValidator(
+  textHashtags,
+  (value) => arrayHashtags(value).every((tag) => HASHTAG_PATTERN.test(tag))
+  ,
+  `Хештеги должен начинаться с #, состоять из букв, цифр,не превышать ${Counters.HASHTAG_MAX_LENGTH} символов.`,
+  2,
+  true
+);
+
+//проверка количества хештегов
+validatePristine.addValidator(
+  textHashtags,
+  (value) => arrayHashtags(value).length <= Counters.HASHTAG_MAX_COUNT ,
+  `Количество хештегов не больше ${Counters.HASHTAG_MAX_COUNT}!`,
+  3,
+  true
+);
+
+//проверка на повторяющийся хештег
+validatePristine.addValidator(
+  textHashtags,
+  (value) => {
+    const words = value.toLowerCase().split(' ');
+    const uniqueTags = new Set(words);
+    return uniqueTags.size === words.length;
+    // const lowerCaseTags = arrayHashtags(value).map((element) => element.toLowerCase());
+    // return lowerCaseTags.length === new Set(lowerCaseTags).size;
+  },
+  'Хештеги должны быть уникальным',
+  1,
+  true
+);
+
+export {validatePristine};

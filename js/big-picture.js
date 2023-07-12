@@ -110,13 +110,14 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
     modalPicture.classList.remove('hidden');
     document.addEventListener('keydown', onWindowKeyDown);
 
-    currentPictureId = evt.target.id;
+    currentPictureId = evt.target.dataset.pictureId;
     createBigPicture();
   }
 
   //делегирую клик на родителя
   parentPicture.addEventListener('click', (evt) => {
     if (evt.target.closest('.picture__img')) {
+      evt.preventDefault();
       openBigPicture(evt);
     }
   });
