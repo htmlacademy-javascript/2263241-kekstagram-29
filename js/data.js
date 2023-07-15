@@ -17,6 +17,13 @@ const Counters = {
 };
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
+const Scale = {
+  MAX: 100,
+  MIN: 25,
+  STEP: 25,
+  DEFAULT: 100
+};
+
 // eslint-disable-next-line no-unused-vars
 const DESCRIPTION = [
   'Я и море',
@@ -44,4 +51,55 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-export {Counters, DESCRIPTION, NAME, MESSAGE, HASHTAG_PATTERN};
+const EFFECTS = [
+  {
+    name : 'none',
+    style : 'none',
+    min : 0 ,
+    max : 100 ,
+    step : 1,
+    unit : '',
+  },
+  {
+    name : 'chrome',
+    style : 'grayscale',
+    min : 0 ,
+    max : 1,
+    step : 0.1,
+    unit : '',
+  },
+  {
+    name : 'sepia',
+    style : 'sepia',
+    min : 0,
+    max : 1,
+    step : 0.1,
+    unit : '',
+  },
+  {
+    name : 'marvin',
+    style : 'invert',
+    min : 0,
+    max : 100,
+    step : 1,
+    unit : '%',
+  },
+  {
+    name : 'phobos',
+    style : 'blur',
+    min : 0,
+    max : 3,
+    step : 0.1,
+    unit : 'px',
+  },
+  {
+    name : 'heat',
+    style : 'brightness',
+    min : 1,
+    max : 3,
+    step : 0.1,
+    unit : '',
+  }
+];
+
+export {Counters, Scale, EFFECTS, DESCRIPTION, NAME, MESSAGE, HASHTAG_PATTERN};

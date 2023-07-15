@@ -44,9 +44,8 @@ validatePristine.addValidator(
 validatePristine.addValidator(
   textHashtags,
   (value) => {
-    const words = value.toLowerCase().split(' ');
-    const uniqueTags = new Set(words);
-    return uniqueTags.size === words.length;
+    const loCaseHashtags = arrayHashtags(value).map((tag) => (tag.toLowerCase()));
+    return loCaseHashtags.length === new Set(loCaseHashtags).size;
   },
   'Хештеги должны быть уникальным',
   1,
