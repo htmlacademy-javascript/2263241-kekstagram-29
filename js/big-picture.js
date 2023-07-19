@@ -70,7 +70,7 @@ const showBigPicture = (picturesGallery) => {
 
   //Находитё нужный элемент массива по currentPictureId
   const createBigPicture = () => {
-
+  // !!!!!!!!!!  НАХОДИМ ID
     currentPicture = picturesGallery.find((elementGallery) => elementGallery.id === parseInt(currentPictureId, 10));
 
     bigPictureElement.querySelector('.big-picture__img img').src = currentPicture.url;
