@@ -1,4 +1,5 @@
 //import {createGallery} from './create-gallery.js';
+
 const createThumbnails = (picturesArray) => {
 
   const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');

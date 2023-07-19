@@ -1,6 +1,7 @@
 import {isEscapeKey} from './util.js';
+import {Counters} from './data.js';
 
-const showBigPicture = (picturesGallery, countCommentsMax) => {
+const showBigPicture = (picturesGallery) => {
   const bodyElement = document.querySelector('body');
   const modalPicture = document.querySelector('.big-picture');
   const modalPictureCancel = modalPicture.querySelector('#picture-cancel');
@@ -56,7 +57,7 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
 
   function onButtonLoadClick () {
     const startComment = bigPictureElementSocial.querySelector('.social__comments').children.length;
-    const uploadCommentsCount = startComment + countCommentsMax;
+    const uploadCommentsCount = startComment + Counters.COMMENT_BIG_PICTURE;
     if (uploadCommentsCount <= currentPicture.comments.length) {
       createComments(currentPicture.comments, startComment, uploadCommentsCount);
       commentsDownloadAmount.textContent = uploadCommentsCount;
@@ -77,7 +78,7 @@ const showBigPicture = (picturesGallery, countCommentsMax) => {
     bigPictureElementSocial.querySelector('.likes-count').textContent = currentPicture.likes;
     bigPictureElementSocial.querySelector('.comments-count').textContent = currentPicture.comments.length;
 
-    let countComments = countCommentsMax;
+    let countComments = Counters.COMMENT_BIG_PICTURE;
 
     if (countComments >= currentPicture.comments.length) {
       countComments = currentPicture.comments.length;
