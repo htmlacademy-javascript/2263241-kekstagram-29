@@ -78,7 +78,8 @@ const setDefaultSlider = () => {
 
 const resetEffects = () => {
   currentEffect = DEFAULT_EFFECT;
+  hideSliderContainer();
   updateSettingsSlider();
 };
 
-export {setDefaultSlider, resetEffects,addEffectListener,removeEffectListener};
+export {setDefaultSlider, resetEffects, addEffectListener,removeEffectListener};

@@ -1,21 +1,19 @@
 import {getData} from './api.js';
 import {createThumbnails} from './create-thumbnails.js';
-import {createGallery} from './create-gallery.js';
 import {showBigPicture} from './big-picture.js';
-//import {Counters} from './data.js';
 import {setDefaultSlider} from './filters.js';
-import './form.js';
-
-//const picturesArray = createGallery();
-//createThumbnails(picturesArray);
-//showBigPicture(picturesArray);
+import {setUserFormSubmit} from './form.js';
+import { showAlert } from './util.js';
 
 getData().then((picturesArray)=>{
   createThumbnails(picturesArray);
-});
-
-getData().then((picturesArray)=>{
   showBigPicture(picturesArray);
-});
+})
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
 
 setDefaultSlider();
+setUserFormSubmit();

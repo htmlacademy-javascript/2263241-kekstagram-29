@@ -1,13 +1,9 @@
-//import {createGallery} from './create-gallery.js';
-
 const createThumbnails = (picturesArray) => {
 
   const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const picturesContainer = document.querySelector('.pictures');
 
   const picturestFragment = document.createDocumentFragment();
-
-  //const picturesGallery = createGallery();
 
   picturesArray.forEach(({id, url, description,comments, likes}) => {
     const picturesElement = picturesTemplate.cloneNode(true);
