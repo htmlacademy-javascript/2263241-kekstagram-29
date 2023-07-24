@@ -57,7 +57,7 @@ const unblockSubmitButton = () => {
   uploadModalSubmit.disabled = false;
 };
 
-uploadForm.addEventListener('input', () => {
+uploadForm.addEventListener('change', () => {
   const isValid = validatePristine.validate();
   if (!isValid) {
     blockSubmitButton();

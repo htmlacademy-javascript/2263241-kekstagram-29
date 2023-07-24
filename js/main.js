@@ -5,6 +5,7 @@ import {setDefaultSlider} from './effects.js';
 import {setUserFormSubmit} from './form.js';
 import { showAlert } from './util.js';
 import {showFilters} from './filters.js';
+import {addFileChooserListener} from './upload-file.js';
 
 getData().then((picturesArray)=>{
   createThumbnails(picturesArray);
@@ -19,3 +20,4 @@ getData().then((picturesArray)=>{
 
 setDefaultSlider();
 setUserFormSubmit();
+addFileChooserListener();
