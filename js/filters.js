@@ -1,85 +1,52 @@
-import {EFFECTS} from './data.js';
+import {createThumbnails} from './create-thumbnails.js';
+import {debounce} from './util.js';
 
-const DEFAULT_EFFECT = EFFECTS[0];
-let currentEffect = DEFAULT_EFFECT;
-
-const sliderContainer = document.querySelector('.img-upload__effect-level');
-const sliderElement = document.querySelector('.effect-level__slider');
-const effectSliderValue = document.querySelector('.effect-level__value');
-const effectsList = document.querySelector('.img-upload__effects');
-const imgPreview = document.querySelector('.img-upload__preview img');
-
-const showSliderContainer = () => sliderContainer.classList.remove('hidden');
-const hideSliderContainer = () => sliderContainer.classList.add('hidden');
-
-
-const createSlider = () => {
-  noUiSlider.create(sliderElement, {
-    start: DEFAULT_EFFECT.max,
-    range: {
-      min: DEFAULT_EFFECT.min,
-      max: DEFAULT_EFFECT.max,
-    },
-    step: DEFAULT_EFFECT.step,
-    connect: 'lower',
-  });
+const FilterType = {
+  DEFAULT: 'filter-default',
+  RANDOM:'filter-random',
+  DISCUSSED: 'filter-discussed'
 };
+const TIMEOUT = 500;
 
-const isDefault = () => currentEffect === DEFAULT_EFFECT;
+const filtersList = document.querySelector('.img-filters');
+const filterButtons = document.querySelectorAll('.img-filters__button');
 
-const updateSettingsSlider = () => {
-  sliderElement.noUiSlider.updateOptions({
-    start: currentEffect.max,
-    range: {
-      min: currentEffect.min,
-      max: currentEffect.max,
-    },
-    step: currentEffect.step,
-    connect: 'lower',
-  });
+const getFilters = (pictures, filterButton) => {
 
-};
-
-const onEffectsChange = (evt) => {
-  currentEffect = EFFECTS.find((element) => element.name === evt.target.value);
-  if (!isDefault()) {
-    updateSettingsSlider();
-    showSliderContainer();
-  } else {
-    updateSettingsSlider();
-    hideSliderContainer();
+  if (filterButton.id === FilterType.DEFAULT) {
+    return pictures;
   }
 
-};
-
-const onSliderUpdate = () => {
-  const sliderValue = sliderElement.noUiSlider.get();
-  if (isDefault()) {
-    imgPreview.style.filter = DEFAULT_EFFECT.style;
-  } else{
-    imgPreview.style.filter = `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
+  if (filterButton.id === FilterType.RANDOM) {
+    return pictures.slice().sort(() => Math.random() - 0.5).slice(0, 10);
   }
-  effectSliderValue.value = sliderValue;
+
+  if (filterButton.id === FilterType.DISCUSSED) {
+    return pictures.slice().sort((a, b)=>(b.comments.length - a.comments.length));
+  }
 };
 
-const addEffectListener = () => {
-  effectsList.addEventListener('change', onEffectsChange);
+const onFiltersClick = (evt, pictures) =>{
+  if (evt.target.classList.contains('img-filters__button')){
+    filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
+
+    const filterButton = evt.target;
+    filterButton.classList.add('img-filters__button--active');
+
+    document.querySelectorAll('.picture').forEach((element)=>element.remove());
+    createThumbnails(getFilters(pictures, filterButton));
+  }
 };
 
-const removeEffectListener = () => {
-  effectsList.removeEventListener('change', onEffectsChange);
+const addFilterListener = (pictures) => {
+  filtersList.addEventListener('click', debounce((evt) => {
+    onFiltersClick(evt, pictures);
+  }, TIMEOUT));
 };
 
-const setDefaultSlider = () => {
-  createSlider();
-  hideSliderContainer();
-  sliderElement.noUiSlider.on('update', onSliderUpdate);
+const showFilters = (pictures) => {
+  filtersList.classList.remove('img-filters--inactive');
+  addFilterListener(pictures);
 };
+export {showFilters};
 
-const resetEffects = () => {
-  currentEffect = DEFAULT_EFFECT;
-  hideSliderContainer();
-  updateSettingsSlider();
-};
-
-export {setDefaultSlider, resetEffects, addEffectListener,removeEffectListener};

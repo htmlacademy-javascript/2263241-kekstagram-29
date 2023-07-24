@@ -1,7 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {validatePristine} from './form-validation.js';
 import { addScaleListener, removeScaleListener, resetScale} from './scale.js';
-import {addEffectListener,removeEffectListener,resetEffects} from'./filters.js';
+import {addEffectListener,removeEffectListener,resetEffects} from'./effects.js';
 import { sendData } from './api.js';
 import { createSuccessMessage } from './message.js';
 
@@ -57,7 +57,7 @@ const unblockSubmitButton = () => {
   uploadModalSubmit.disabled = false;
 };
 
-uploadForm.addEventListener('input', () => {
+uploadForm.addEventListener('change', () => {
   const isValid = validatePristine.validate();
   if (!isValid) {
     blockSubmitButton();
