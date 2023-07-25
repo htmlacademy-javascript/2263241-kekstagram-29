@@ -5,6 +5,8 @@ const createThumbnails = (picturesArray) => {
 
   const picturestFragment = document.createDocumentFragment();
 
+  document.querySelectorAll('.picture').forEach((element)=>element.remove());
+
   picturesArray.forEach(({id, url, description,comments, likes}) => {
     const picturesElement = picturesTemplate.cloneNode(true);
     const pictureElementImg = picturesElement.querySelector('.picture__img');
