@@ -47,7 +47,8 @@ function openUploadModal () {
   addEffectListener();
 }
 
-uploadFile.addEventListener('change', openUploadModal);
+const onUploadModalClick = () => openUploadModal();
+uploadFile.addEventListener('change', onUploadModalClick);
 
 const blockSubmitButton = () => {
   uploadModalSubmit.disabled = true;
@@ -57,14 +58,6 @@ const unblockSubmitButton = () => {
   uploadModalSubmit.disabled = false;
 };
 
-uploadForm.addEventListener('change', () => {
-  const isValid = validatePristine.validate();
-  if (!isValid) {
-    blockSubmitButton();
-  } else {
-    unblockSubmitButton();
-  }
-});
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -72,12 +65,12 @@ const SubmitButtonText = {
 };
 
 const startSendData = () => {
-  unblockSubmitButton();
+  blockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.SENDING;
   elementHashtags.readOnly = true;
   elementDescription.readOnly = true;
-  //показатть сообщение об успехе
 };
+
 const EndSendData = () => {
   unblockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.IDLE;

@@ -1,4 +1,5 @@
 import {Scale} from './data.js';
+
 const buttonPlus = document.querySelector('.scale__control--bigger');
 const buttonMinus = document.querySelector('.scale__control--smaller');
 const scaleValue = document.querySelector('.scale__control--value');

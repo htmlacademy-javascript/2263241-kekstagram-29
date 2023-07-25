@@ -1,8 +1,4 @@
-const FilterType = {
-  DEFAULT: 'filter-default',
-  RANDOM:'filter-random',
-  DISCUSSED: 'filter-discussed'
-};
+import {FilterType} from './data.js';
 
 const filtersList = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');

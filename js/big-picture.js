@@ -29,14 +29,14 @@ const showBigPicture = (picturesGallery) => {
 
   //Добавляет комментарии, предварительно удалив старые
 
-  const createComments = (comments, startComment, countcommentsLoad) => {
-    if (startComment === 0) {
+  const createComments = (comments, startingComment, countcommentsLoad) => {
+    if (startingComment === 0) {
       bigPictureSocialComments.innerHTML = '';
     }
     const commentsFragment = document.createDocumentFragment();
 
     if (countcommentsLoad !== 0){
-      const commentsDownload = comments.slice(startComment, countcommentsLoad);
+      const commentsDownload = comments.slice(startingComment, countcommentsLoad);
       for (let i = 0; i < commentsDownload.length; i++) {
         const oneComment = createOneCommentElement(commentsDownload[i]); //создаем элемент для комментария
         commentsFragment.appendChild(oneComment);
@@ -56,13 +56,15 @@ const showBigPicture = (picturesGallery) => {
   };
 
   function onButtonLoadClick () {
-    const startComment = bigPictureElementSocial.querySelector('.social__comments').children.length;
-    const uploadCommentsCount = startComment + Counters.COMMENT_BIG_PICTURE;
-    if (uploadCommentsCount <= currentPicture.comments.length) {
-      createComments(currentPicture.comments, startComment, uploadCommentsCount);
-      commentsDownloadAmount.textContent = uploadCommentsCount;
+    const startingComment = bigPictureElementSocial.querySelector('.social__comments').children.length;
+
+    const uploadingComments = startingComment + Counters.COMMENT_BIG_PICTURE;
+
+    if (uploadingComments <= currentPicture.comments.length) {
+      createComments(currentPicture.comments, startingComment, uploadingComments);
+      commentsDownloadAmount.textContent = uploadingComments;
     } else {
-      createComments(currentPicture.comments, startComment, currentPicture.comments.length);
+      createComments(currentPicture.comments, startingComment, currentPicture.comments.length);
       commentsDownloadAmount.textContent = currentPicture.comments.length;
       hideButtonUpload ();
     }
@@ -70,7 +72,7 @@ const showBigPicture = (picturesGallery) => {
 
   //Находитё нужный элемент массива по currentPictureId
   const createBigPicture = () => {
-  // !!!!!!!!!!  НАХОДИМ ID
+
     currentPicture = picturesGallery.find((elementGallery) => elementGallery.id === parseInt(currentPictureId, 10));
 
     bigPictureElement.querySelector('.big-picture__img img').src = currentPicture.url;

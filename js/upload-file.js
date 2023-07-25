@@ -1,4 +1,4 @@
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+import {FILE_TYPES} from './data.js';
 
 const fileChooser = document.querySelector('.img-upload__input[type=file]');
 const preview = document.querySelector('.img-upload__preview img');
@@ -13,7 +13,7 @@ const addFileChooserListener = () => {
 
     if (matches) {
       preview.src = URL.createObjectURL(file);
-      previewEffects.forEach((value) => (value.style.backgroundImage = `url(${URL.createObjectURL(file)})`));
+      previewEffects.forEach((value) => (value.style.backgroundImage = `url(${preview.src})`));
     }
   });
 };

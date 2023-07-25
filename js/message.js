@@ -1,8 +1,5 @@
 import {isEscapeKey} from './util.js';
-const Variants = {
-  SUCCESS: 'success',
-  ERROR: 'error'
-};
+import {Variants} from './data.js';
 
 const createSuccessMessage = (success = true) => {
   let typeMessage;
@@ -29,6 +26,7 @@ const createSuccessMessage = (success = true) => {
   function onKeyDownPress (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
+      evt.stopPropagation();
       closeMessage();
     }
   }
