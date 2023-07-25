@@ -65,4 +65,20 @@ const EFFECTS = [
   }
 ];
 
-export {Counters, Scale, EFFECTS, HASHTAG_PATTERN};
+const FilterType = {
+  DEFAULT: 'filter-default',
+  RANDOM:'filter-random',
+  DISCUSSED: 'filter-discussed'
+};
+
+const Variants = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+};
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const ALERT_SHOW_TIME = 5000;
+const DEBOUNCE_TIME = 500;
+
+export {Counters, Scale, FilterType, Variants, ALERT_SHOW_TIME, DEBOUNCE_TIME, FILE_TYPES, EFFECTS, HASHTAG_PATTERN};
