@@ -13,7 +13,9 @@ const addFileChooserListener = () => {
 
     if (matches) {
       preview.src = URL.createObjectURL(file);
-      previewEffects.forEach((value) => (value.style.backgroundImage = `url(${preview.src})`));
+      previewEffects.forEach((value) => {
+        value.style.backgroundImage = `url(${preview.src})`;
+      });
     }
   });
 };

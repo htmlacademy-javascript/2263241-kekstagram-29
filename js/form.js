@@ -64,14 +64,14 @@ const SubmitButtonText = {
   SENDING: 'Сохраняю...'
 };
 
-const startSendData = () => {
+const startSendingData = () => {
   blockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.SENDING;
   elementHashtags.readOnly = true;
   elementDescription.readOnly = true;
 };
 
-const EndSendData = () => {
+const finishSendingData = () => {
   unblockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.IDLE;
   elementHashtags.readOnly = false;
@@ -84,12 +84,12 @@ const setUserFormSubmit = () => {
     const isValid = validatePristine.validate();
     if (isValid) {
       const formData = new FormData(evt.target);
-      startSendData();
+      startSendingData();
       sendData(formData,()=>(closeUploadModal(),createSuccessMessage()))
         .catch(
           () => (createSuccessMessage(false))
         )
-        .finally(EndSendData);
+        .finally(finishSendingData);
     }
   });
 };

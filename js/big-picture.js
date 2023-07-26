@@ -29,14 +29,14 @@ const showBigPicture = (picturesGallery) => {
 
   //Добавляет комментарии, предварительно удалив старые
 
-  const createComments = (comments, startingComment, countcommentsLoad) => {
+  const createComments = (comments, startingComment, countCommentsLoad) => {
     if (startingComment === 0) {
       bigPictureSocialComments.innerHTML = '';
     }
     const commentsFragment = document.createDocumentFragment();
 
-    if (countcommentsLoad !== 0){
-      const commentsDownload = comments.slice(startingComment, countcommentsLoad);
+    if (countCommentsLoad !== 0){
+      const commentsDownload = comments.slice(startingComment, countCommentsLoad);
       for (let i = 0; i < commentsDownload.length; i++) {
         const oneComment = createOneCommentElement(commentsDownload[i]); //создаем элемент для комментария
         commentsFragment.appendChild(oneComment);
@@ -124,8 +124,8 @@ const showBigPicture = (picturesGallery) => {
       openBigPicture(evt);
     }
   });
-
-  modalPictureCancel.addEventListener('click', closeBigPicture);
+  const onCloseBigPicture = () => closeBigPicture();
+  modalPictureCancel.addEventListener('click', onCloseBigPicture);
 
 
 };

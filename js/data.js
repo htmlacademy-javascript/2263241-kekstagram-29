@@ -1,3 +1,8 @@
+const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
+
+const ALERT_SHOW_TIME = 5000;
+const DEBOUNCE_TIME = 500;
+
 const Counters = {
   COMMENT_BIG_PICTURE: 5,
   HASHTAG_MAX_COUNT: 5,
@@ -5,7 +10,6 @@ const Counters = {
   HASHTAG_MAX_LENGTH: 20,
   COMMENT_MAX_LENGTH: 140
 };
-const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const Scale = {
   MAX: 100,
@@ -77,8 +81,5 @@ const Variants = {
 };
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
-const ALERT_SHOW_TIME = 5000;
-const DEBOUNCE_TIME = 500;
 
 export {Counters, Scale, FilterType, Variants, ALERT_SHOW_TIME, DEBOUNCE_TIME, FILE_TYPES, EFFECTS, HASHTAG_PATTERN};

@@ -39,10 +39,10 @@ const addFilterListener = (callback) => {
   });
 };
 
-const showFiltredPhotos = (pictures, callback) => {
+const showFilteredPhotos = (pictures, callback) => {
   filtersList.classList.remove('img-filters--inactive');
   defaultPictures = pictures.slice();
   addFilterListener(callback);
 };
-export {showFiltredPhotos};
+export {showFilteredPhotos};
 
