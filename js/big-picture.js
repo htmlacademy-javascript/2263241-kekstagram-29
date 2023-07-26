@@ -29,14 +29,14 @@ const createOneComment = (comment) => {
 
 //Добавляет комментарии, предварительно удалив старые
 
-const createComments = (comments, startingComment, countCommentsLoad) => {
+const createComments = (comments, startingComment, uploadingComments) => {
   if (startingComment === 0) {
     bigPictureSocialComments.innerHTML = '';
   }
   const commentsFragment = document.createDocumentFragment();
 
-  if (countCommentsLoad !== 0){
-    const commentsDownload = comments.slice(startingComment, countCommentsLoad);
+  if (uploadingComments !== 0){
+    const commentsDownload = comments.slice(startingComment, uploadingComments);
     for (let i = 0; i < commentsDownload.length; i++) {
       const oneComment = createOneComment(commentsDownload[i]); //создаем элемент для комментария
       commentsFragment.appendChild(oneComment);

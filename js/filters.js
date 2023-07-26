@@ -1,7 +1,10 @@
 import {FilterType} from './data.js';
 
+const COUNT_RANDOM_PHOTOS = 10;
+
 const filtersList = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');
+
 let currentFilter = FilterType.DEFAULT;
 let defaultPictures = [];
 
@@ -11,7 +14,7 @@ const getFilters = () => {
   }
 
   if (currentFilter === FilterType.RANDOM) {
-    return defaultPictures.slice().sort(() => Math.random() - 0.5).slice(0, 10);
+    return defaultPictures.slice().sort(() => Math.random() - 0.5).slice(0, COUNT_RANDOM_PHOTOS);
   }
 
   if (currentFilter === FilterType.DISCUSSED) {
@@ -29,7 +32,6 @@ const onFiltersClick = (evt, callback) =>{
     filterButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
     filterButton.classList.add('img-filters__button--active');
     callback(getFilters());
-
   }
 };
 

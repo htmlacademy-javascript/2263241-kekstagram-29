@@ -85,7 +85,7 @@ const setUserFormSubmit = () => {
     if (isValid) {
       const formData = new FormData(evt.target);
       startSendingData();
-      sendData(formData,()=>(closeUploadModal(),createSuccessMessage()))
+      sendData(formData).then(()=>(closeUploadModal(),createSuccessMessage()))
         .catch(
           () => (createSuccessMessage(false))
         )
