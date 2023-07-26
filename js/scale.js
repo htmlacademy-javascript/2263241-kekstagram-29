@@ -20,7 +20,7 @@ const onButtonMinusClick = () =>{
   }
 };
 
-const onbuttonPlusClick = () =>{
+const onButtonPlusClick = () =>{
   let currentScale = parseInt(scaleValue.value, 10);
   if (currentScale < Scale.MAX){
     currentScale = parseInt(scaleValue.value, 10) + Scale.STEP;
@@ -34,12 +34,12 @@ const resetScale = () => scaleImage(Scale.DEFAULT);
 
 const addScaleListener = () => {
   buttonMinus.addEventListener('click', onButtonMinusClick);
-  buttonPlus.addEventListener('click', onbuttonPlusClick);
+  buttonPlus.addEventListener('click', onButtonPlusClick);
 };
 
 const removeScaleListener = () => {
   buttonMinus.removeEventListener('click', onButtonMinusClick);
-  buttonPlus.removeEventListener('click', onbuttonPlusClick);
+  buttonPlus.removeEventListener('click', onButtonPlusClick);
 };
 
 export {resetScale, addScaleListener, removeScaleListener};

@@ -1,6 +1,10 @@
 import {isEscapeKey} from './util.js';
 import {Variants} from './data.js';
 
+let currentMessage,currentButton;
+
+const body = document.querySelector('body');
+
 const createSuccessMessage = (success = true) => {
   let typeMessage;
   if (success === true) {
@@ -10,43 +14,42 @@ const createSuccessMessage = (success = true) => {
   }
 
   const currentMessageTemplate = document.querySelector(`#${typeMessage}`).content.querySelector(`.${typeMessage}`);
-  const currentMessage = currentMessageTemplate.cloneNode(true);
-  const currentButton = currentMessage.querySelector(`.${typeMessage}__button`);
-  const bodyElement = document.querySelector('body');
-
-  const removeElement = (element) => element.remove();
-
-  const closeMessage = () => {
-    removeElement(currentMessage);
-    bodyElement.removeEventListener('keydown',onKeyDownPress);
-    bodyElement.removeEventListener('click',onOutSideClick);
-    currentButton.removeEventListener('click',onSuccessClick);
-  };
-
-  function onKeyDownPress (evt) {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      evt.stopPropagation();
-      closeMessage();
-    }
-  }
-
-  function onSuccessClick () {
-    closeMessage();
-  }
-
-
-  function onOutSideClick(evt) {
-    if(evt.target === currentMessage){
-      closeMessage();
-    }
-  }
+  currentMessage = currentMessageTemplate.cloneNode(true);
+  currentButton = currentMessage.querySelector(`.${typeMessage}__button`);
 
   currentButton.addEventListener('click',onSuccessClick);
-  bodyElement.addEventListener('keydown',onKeyDownPress);
-  bodyElement.addEventListener('click',onOutSideClick);
-  bodyElement.append(currentMessage);
-
+  body.addEventListener('keydown',onKeyDownPress);
+  body.addEventListener('click',onOutSideClick);
+  body.append(currentMessage);
 };
+
+const removeMessage = (element) => element.remove();
+
+const closeMessage = () => {
+  removeMessage(currentMessage);
+  body.removeEventListener('keydown',onKeyDownPress);
+  body.removeEventListener('click',onOutSideClick);
+  currentButton.removeEventListener('click',onSuccessClick);
+};
+
+function onKeyDownPress (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    closeMessage();
+  }
+}
+
+function onSuccessClick () {
+  closeMessage();
+}
+
+
+function onOutSideClick(evt) {
+  if(evt.target === currentMessage){
+    closeMessage();
+  }
+}
+
 
 export {createSuccessMessage};
