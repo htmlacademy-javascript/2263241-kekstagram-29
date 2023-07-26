@@ -6,14 +6,14 @@ import { sendData } from './api.js';
 import { createSuccessMessage } from './message.js';
 
 
-const bodyElement = document.querySelector('body');
-const uploadFile = bodyElement.querySelector('#upload-file');
-const uploadOverlay = bodyElement.querySelector('.img-upload__overlay');
-const uploadModalCancel = bodyElement.querySelector('.img-upload__cancel');
+const body = document.querySelector('body');
+const uploadFile = body.querySelector('#upload-file');
+const uploadOverlay = body.querySelector('.img-upload__overlay');
+const uploadModalCancel = body.querySelector('.img-upload__cancel');
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadModalSubmit = document.querySelector('.img-upload__submit');
-const elementHashtags = document.querySelector('.text__hashtags');
-const elementDescription = document.querySelector('.text__description');
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
 
 const onWindowKeyDown = (evt) => {
@@ -28,7 +28,7 @@ const onUploadModalCancelClick = () => closeUploadModal();
 function closeUploadModal () {
   uploadForm.reset();
   validatePristine.reset();
-  bodyElement.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   uploadOverlay.classList.add('hidden');
   document.removeEventListener('keydown', onWindowKeyDown);
   uploadModalCancel.removeEventListener('click',onUploadModalCancelClick);
@@ -39,7 +39,7 @@ function closeUploadModal () {
 }
 
 function openUploadModal () {
-  bodyElement.classList.add('modal-open');
+  body.classList.add('modal-open');
   uploadOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onWindowKeyDown);
   uploadModalCancel.addEventListener('click',onUploadModalCancelClick);
@@ -67,15 +67,15 @@ const SubmitButtonText = {
 const startSendingData = () => {
   blockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.SENDING;
-  elementHashtags.readOnly = true;
-  elementDescription.readOnly = true;
+  textHashtags.readOnly = true;
+  textDescription.readOnly = true;
 };
 
 const finishSendingData = () => {
   unblockSubmitButton();
   uploadModalSubmit.textContent = SubmitButtonText.IDLE;
-  elementHashtags.readOnly = false;
-  elementDescription.readOnly = false;
+  textHashtags.readOnly = false;
+  textDescription.readOnly = false;
 };
 
 const setUserFormSubmit = () => {
